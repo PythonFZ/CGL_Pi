@@ -1,6 +1,6 @@
 """Command Line Interface for pi estimators."""
 
-import click
+import argparse
 
 import pi
 
@@ -10,15 +10,16 @@ estimator = {
     "Leibniz": pi.LeibnizPiEstimator,
 }
 
-
-@click.command()
-@click.option("--method", help=f"Select from {', '.join(estimator)}.")
-@click.option("-n", help="Argument for the selected pi estimator method.")
-def cli(method: str, n: int) -> None:
-    """Estimate pi using various methods."""
-    method = estimator[method]
-    click.echo(f"{method.__name__}: {method(int(n)).estimate()}")
-
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--method", help=f"Select from {', '.join(estimator)}.", required=True
+)
+parser.add_argument(
+    "-n", help="Argument for the selected pi estimator method.", required=True
+)
 
 if __name__ == "__main__":
-    cli()
+
+    args = parser.parse_args()
+    method = estimator[args.method]
+    print(f"{method.__name__}: {method(int(args.n)).estimate()}")
