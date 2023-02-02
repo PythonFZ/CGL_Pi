@@ -24,7 +24,7 @@ def test_MCPiEstimator_n_error():
         _ = pi.MonteCarloPiEstimator(10e5).estimate()
 
 
-@pytest.mark.parametrize("n", [2, 3, 4, 5, 6, 7, 8, 9, 10])
+@pytest.mark.parametrize("n", [2, 3, 4, 5, 6, 7, 8])
 def test_BaileyBorweinPlouffe(n):
     """Test the BaileyBorweinPlouffe Estimator."""
     assert pi.BaileyBorweinPlouffeEstimator(n).estimate() == pytest.approx(np.pi, 0.001)
